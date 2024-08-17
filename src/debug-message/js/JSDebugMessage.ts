@@ -41,7 +41,7 @@ function getCurrentLanguage() {
         prefixDiy = "console.log";
       }
       if (languageId == "php") {
-        prefixDiy = "var_dump";
+        prefixDiy = "var_dump_";
         // joinSymbol = '.';
       }
       if (languageId == "tpl") {
@@ -178,6 +178,7 @@ export class JSDebugMessage extends DebugMessage {
       ? ';'
       : '';
     const getCurrentLanguageReturn = getCurrentLanguage();
+    const selectedVarString: string =  selectedVar.replace(/\'/g," ").replace(/\"/g," ")
     return `${
       extensionProperties.logFunction !== 'log'
         ? extensionProperties.logFunction
@@ -207,7 +208,7 @@ export class JSDebugMessage extends DebugMessage {
           ? `${funcThatEncloseTheVar} ${extensionProperties.delimiterInsideMessage} `
           : ''
         : ''
-    }${selectedVar}${extensionProperties.logMessageSuffix}${
+    }${selectedVarString}${extensionProperties.logMessageSuffix}${
       extensionProperties.quote
     }, ${selectedVar})${semicolon}`;
   }
